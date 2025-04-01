@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background_light"
+    tools:context=".ui.activities.RequestDetailActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.StockRequest.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/primary"
+            app:popupTheme="@style/Theme.StockRequest.PopupOverlay"
+            app:title="@string/request_details"
+            app:titleTextAppearance="@style/TextAppearance.StockRequest.Headline6" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/contentLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/tvItemNameLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/item_name"
+                android:textAppearance="@style/TextAppearance.StockRequest.Subtitle1"
+                android:textColor="@color/primary_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tvItemNameValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textAppearance="@style/TextAppearance.StockRequest.Body1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvItemNameLabel"
+                tools:text="Model XYZ Running Shoe" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="16dp"
+                app:cardCornerRadius="12dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvItemNameValue">
+
+                <ImageView
+                    android:id="@+id/ivItemPhoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:contentDescription="@string/reference_photo"
+                    android:scaleType="centerCrop"
+                    tools:src="@tools:sample/backgrounds/scenic" />
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tvColorsLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/colors"
+                android:textAppearance="@style/TextAppearance.StockRequest.Subtitle1"
+                android:textColor="@color/primary_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardPhoto" />
+
+            <TextView
+                android:id="@+id/tvColorsWantedLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/wanted"
+                android:textAppearance="@style/TextAppearance.StockRequest.Body2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvColorsLabel" />
+
+            <TextView
+                android:id="@+id/tvColorsWantedValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textAppearance="@style/TextAppearance.StockRequest.Body1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvColorsWantedLabel"
+                app:layout_constraintTop_toTopOf="@+id/tvColorsWantedLabel"
+                tools:text="Black, Navy Blue, Grey" />
+
+            <TextView
+                android:id="@+id/tvColorsNotWantedLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/not_wanted"
+                android:textAppearance="@style/TextAppearance.StockRequest.Body2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvColorsWantedValue" />
+
+            <TextView
+                android:id="@+id/tvColorsNotWantedValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textAppearance="@style/TextAppearance.StockRequest.Body1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvColorsNotWantedLabel"
+                app:layout_constraintTop_toTopOf="@+id/tvColorsNotWantedLabel"
+                tools:text="Pink, Yellow" />
+
+            <TextView
+                android:id="@+id/tvQuantityLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/quantity"
+                android:textAppearance="@style/TextAppearance.StockRequest.Body2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvColorsNotWantedValue" />
+
+            <TextView
+                android:id="@+id/tvQuantityValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textAppearance="@style/TextAppearance.StockRequest.Body1"
+                app:layout_constraintStart_toEndOf="@+id/tvQuantityLabel"
+                app:layout_constraintTop_toTopOf="@+id/tvQuantityLabel"
+                tools:text="10" />
+
+            <TextView
+                android:id="@+id/tvDaysNeededLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/needed_by"
+                android:textAppearance="@style/TextAppearance.StockRequest.Body2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvQuantityValue" />
+
+            <TextView
+                android:id="@+id/tvDaysNeededValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textAppearance="@style/TextAppearance.StockRequest.Body1"
+                app:layout_constraintStart_toEndOf="@+id/tvDaysNeededLabel"
+                app:layout_constraintTop_toTopOf="@+id/tvDaysNeededLabel"
+                tools:text="3 days" />
+
+            <TextView
+                android:id="@+id/tvDateSubmittedLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/date_submitted"
+                android:textAppearance="@style/TextAppearance.StockRequest.Body2"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDaysNeededValue" />
+
+            <TextView
+                android:id="@+id/tvDateSubmittedValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:textAppearance="@style/TextAppearance.StockRequest.Body1"
+                app:layout_constraintStart_toEndOf="@+id/tvDateSubmittedLabel"
+                app:layout_constraintTop_toTopOf="@+id/tvDateSubmittedLabel"
+                tools:text="Mar 28, 2025" />
+
+            <TextView
+                android:id="@+id/tvStatusLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/status"
+                android:textAppearance="@style/TextAppearance.StockRequest.Subtitle1"
+                android:textColor="@color/primary_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvDateSubmittedValue" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textAppearance="@style/TextAppearance.StockRequest.Body2"
+                android:textColor="@color/white"
+                app:chipBackgroundColor="@color/status_submitted"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvStatusLabel"
+                tools:text="Submitted" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

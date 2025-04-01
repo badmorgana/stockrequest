@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Brand color palette -->
+    <color name="dark_navy">#1C1C29</color>
+    <color name="pale_green">#D4DCC0</color>
+    <color name="white_smoke">#F0F0F0</color>
+    <color name="coral_orange">#FF8754</color>
+
+    <!-- App theme colors -->
+    <color name="primary">@color/dark_navy</color>
+    <color name="primary_dark">@color/dark_navy</color>
+    <color name="primary_light">@color/white_smoke</color>
+    <color name="accent">@color/coral_orange</color>
+    <color name="primary_text">@color/dark_navy</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">@color/white_smoke</color>
+    <color name="divider">#BDBDBD</color>
+
+    <!-- Status colors -->
+    <color name="status_submitted">@color/dark_navy</color>
+    <color name="status_processing">@color/pale_green</color>
+    <color name="status_ordered">@color/coral_orange</color>
+    <color name="status_completed">@color/coral_orange</color>
+    <color name="status_on_hold">#F44336</color>
+
+    <!-- General colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="light_gray">@color/white_smoke</color>
+    <color name="medium_gray">#AAAAAA</color>
+    <color name="dark_gray">#555555</color>
+
+    <!-- Background colors -->
+    <color name="background_light">@color/white_smoke</color>
+    <color name="item_background">@color/white</color>
+    <color name="card_shadow">#22000000</color>
+</resources>
