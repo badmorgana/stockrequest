@@ -1,16 +1,21 @@
 package com.example.stockrequest.ui.viewmodels
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.stockrequest.data.database.StockRequestDatabase
 import com.example.stockrequest.data.models.StockRequest
 import com.example.stockrequest.data.repository.StockRequestRepository
 import kotlinx.coroutines.launch
 
-class NewRequestViewModel : ViewModel() {
+class NewRequestViewModel (application: Application): AndroidViewModel(application) {
 
-    private val repository = StockRequestRepository()
+    private val database = StockRequestDatabase.getDatabase(application)
+    private val stockRequestDao = database.stockRequestDao()
+    private val repository = StockRequestRepository(stockRequestDao)
 
     // LiveData for photo URI
     private val _photoUri = MutableLiveData<String>()
@@ -58,7 +63,7 @@ class NewRequestViewModel : ViewModel() {
                 )
 
                 // Submit the request to the repository
-                repository.submitStockRequest(stockRequest)
+                repository.insert(stockRequest)
 
                 _requestSubmitted.value = true
             } catch (e: Exception) {

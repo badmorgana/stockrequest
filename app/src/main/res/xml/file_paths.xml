@@ -3,6 +3,11 @@
     <external-files-path
         name="my_images"
         path="." />
+
+    <files-path
+        name="internal_images"
+        path="." />
+
     <cache-path
         name="cache_images"
         path="." />

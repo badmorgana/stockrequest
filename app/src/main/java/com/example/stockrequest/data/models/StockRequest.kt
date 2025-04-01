@@ -1,32 +1,34 @@
 package com.example.stockrequest.data.models
 
-import java.util.Date
-import java.io.Serializable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import java.util.UUID
 
+@Entity(tableName = "stock_requests")
 data class StockRequest(
-    var id: String = "",
-    val itemName: String = "",
-    var photoUrl: String = "",
-    val colorsWanted: String = "",
+    @PrimaryKey(autoGenerate = true)
+    var id: Long = 0,
+    val itemName: String,
+    val photoUrl: String,
+    val colorsWanted: String,
     val colorsNotWanted: String = "",
-    val quantityNeeded: Int = 0,
-    val daysNeeded: Int = 0,
-    val dateSubmitted: Date = Date(),
-    var status: String = Status.SUBMITTED.displayName,
-    var storeId: String = "",
-    var submitterId: String = ""
-) : Serializable {
-
-    // Enum for request status
-    enum class Status(val displayName: String) {
-        SUBMITTED("Submitted"),
-        PROCESSING("Processing"),
-        ORDERED("Ordered"),
-        COMPLETED("Completed"),
-        ON_HOLD("On Hold")
+    val quantityNeeded: Int,
+    val daysNeeded: Int,
+    val dateSubmitted: Long = System.currentTimeMillis(),
+    var status: Status = Status.SUBMITTED
+) {
+    enum class Status {
+        SUBMITTED, PROCESSING, ORDERED, COMPLETED, ON_HOLD
     }
 
-    fun isUrgent(): Boolean {
-        return daysNeeded <= 3
+    // Companion object for creating a default instance or generating unique identifiers
+    companion object {
+        fun createDefault() = StockRequest(
+            itemName = "",
+            photoUrl = "",
+            colorsWanted = "",
+            quantityNeeded = 0,
+            daysNeeded = 0
+        )
     }
 }

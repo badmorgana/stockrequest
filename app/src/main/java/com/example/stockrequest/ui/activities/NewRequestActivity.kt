@@ -6,7 +6,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.os.Parcelable
 import android.provider.MediaStore
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -78,7 +80,9 @@ class NewRequestActivity : AppCompatActivity() {
     private fun setupListeners() {
         // Button to take a photo
         binding.btnAddPhoto.setOnClickListener {
+            Log.d("NewRequestActivity", "Take Photo button clicked")
             if (checkCameraPermission()) {
+                Log.d("NewRequestActivity", "Camera permission granted")
                 dispatchTakePictureIntent()
             } else {
                 requestCameraPermission()
@@ -217,28 +221,33 @@ class NewRequestActivity : AppCompatActivity() {
     }
 
     private fun dispatchTakePictureIntent() {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
-            // Ensure that there's a camera activity to handle the intent
-            takePictureIntent.resolveActivity(packageManager)?.also {
-                // Create the File where the photo should go
-                val photoFile: File? = try {
-                    createImageFile()
-                } catch (ex: IOException) {
-                    // Error occurred while creating the File
-                    Snackbar.make(binding.root, "Could not create image file", Snackbar.LENGTH_SHORT).show()
-                    null
-                }
+        val photoFile: File? = try {
+            createImageFile()
+        } catch (ex: IOException) {
+            Log.e("NewRequestActivity", "Error creating image file", ex)
+            Snackbar.make(binding.root, "Could not create image file", Snackbar.LENGTH_SHORT).show()
+            null
+        }
 
-                // Continue only if the File was successfully created
-                photoFile?.also {
-                    photoUri = FileProvider.getUriForFile(
-                        this,
-                        "com.example.stockrequest.fileprovider",
-                        it
-                    )
-                    takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
-                    takePictureLauncher.launch(takePictureIntent)
-                }
+        photoFile?.also { file ->
+            try {
+                photoUri = FileProvider.getUriForFile(
+                    this,
+                    "${packageName}.fileprovider",
+                    file
+                )
+
+                val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri)
+
+                // Add URI permissions
+                cameraIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+                cameraIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
+
+                takePictureLauncher.launch(cameraIntent)
+            } catch (ex: Exception) {
+                Log.e("NewRequestActivity", "Error setting up camera intent", ex)
+                Snackbar.make(binding.root, "Could not launch camera ${ex.message}", Snackbar.LENGTH_SHORT).show()
             }
         }
     }
@@ -247,7 +256,7 @@ class NewRequestActivity : AppCompatActivity() {
     private fun createImageFile(): File {
         // Create an image file name
         val timeStamp: String = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-        val storageDir: File = getExternalFilesDir(null) ?: throw IOException("External storage not available")
+        val storageDir: File = filesDir // Use internal storage directory
 
         return File.createTempFile(
             "JPEG_${timeStamp}_", /* prefix */

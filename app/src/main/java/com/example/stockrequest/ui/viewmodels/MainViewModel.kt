@@ -1,20 +1,26 @@
 package com.example.stockrequest.ui.viewmodels
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.stockrequest.data.database.StockRequestDatabase
 import com.example.stockrequest.data.models.StockRequest
 import com.example.stockrequest.data.repository.StockRequestRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
+class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = StockRequestRepository()
+    private val database = StockRequestDatabase.getDatabase(application)
+    private val repository: StockRequestRepository
+    private val stockRequestDao =database.stockRequestDao()
+    private val stockRequestRepository = StockRequestRepository(stockRequestDao)
 
     // LiveData for stock requests
-    private val _stockRequests = MutableLiveData<List<StockRequest>>()
-    val stockRequests: LiveData<List<StockRequest>> = _stockRequests
+    val stockRequests: LiveData<List<StockRequest>>
 
     // LiveData for loading state
     private val _isLoading = MutableLiveData<Boolean>()
@@ -25,7 +31,11 @@ class MainViewModel : ViewModel() {
     val error: LiveData<String?> = _error
 
     init {
-        loadRequests()
+        val dao = database.stockRequestDao()
+        repository = StockRequestRepository(dao)
+
+        // Convert Flow to LiveData
+        stockRequests = repository.allRequests.asLiveData(viewModelScope.coroutineContext)
     }
 
     /**
@@ -34,15 +44,15 @@ class MainViewModel : ViewModel() {
     fun loadRequests() {
         _isLoading.value = true
 
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
-                val requests = repository.getStockRequests()
-                _stockRequests.value = requests
-                _error.value = null
+                // Since stockRequests is now a Flow converted to LiveData,
+                // we don't need to manually set its value
+                _error.postValue(null)
             } catch (e: Exception) {
-                _error.value = e.message ?: "Error loading requests"
+                _error.postValue(e.message ?: "Error loading requests")
             } finally {
-                _isLoading.value = false
+                _isLoading.postValue(false)
             }
         }
     }

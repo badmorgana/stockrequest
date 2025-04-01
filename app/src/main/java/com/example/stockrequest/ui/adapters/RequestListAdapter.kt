@@ -53,16 +53,14 @@ class RequestListAdapter(
                 tvDate.text = dateFormat.format(request.dateSubmitted)
 
                 // Set status chip
-                chipStatus.text = request.status
+                chipStatus.text = request.status.name
 
-                // Set chip color based on status
                 val chipColor = when (request.status) {
-                    StockRequest.Status.SUBMITTED.displayName -> R.color.status_submitted
-                    StockRequest.Status.PROCESSING.displayName -> R.color.status_processing
-                    StockRequest.Status.ORDERED.displayName -> R.color.status_ordered
-                    StockRequest.Status.COMPLETED.displayName -> R.color.status_completed
-                    StockRequest.Status.ON_HOLD.displayName -> R.color.status_on_hold
-                    else -> R.color.status_submitted
+                    StockRequest.Status.SUBMITTED -> R.color.status_submitted
+                    StockRequest.Status.PROCESSING -> R.color.status_processing
+                    StockRequest.Status.ORDERED -> R.color.status_ordered
+                    StockRequest.Status.COMPLETED -> R.color.status_completed
+                    StockRequest.Status.ON_HOLD -> R.color.status_on_hold
                 }
                 chipStatus.setChipBackgroundColorResource(chipColor)
 

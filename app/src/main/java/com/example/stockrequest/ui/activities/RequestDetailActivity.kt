@@ -9,9 +9,10 @@ import com.example.stockrequest.R
 import com.example.stockrequest.data.models.StockRequest
 import com.example.stockrequest.databinding.ActivityRequestDetailBinding
 import com.example.stockrequest.ui.viewmodels.RequestDetailViewModel
-import com.example.stockrequest.utils.formatToString
-import com.example.stockrequest.utils.loadImage
 import com.google.android.material.snackbar.Snackbar
+import java.text.SimpleDateFormat
+import java.util.Locale
+import com.example.stockrequest.utils.loadImage
 
 class RequestDetailActivity : AppCompatActivity() {
 
@@ -81,13 +82,23 @@ class RequestDetailActivity : AppCompatActivity() {
             tvDateSubmittedValue.text = request.dateSubmitted.formatToString()
 
             // Set status chip
-            chipStatus.text = request.status
-            chipStatus.setChipBackgroundColorResource(request.status.getStatusColor(this@RequestDetailActivity))
+            chipStatus.text = request.status.name
+            chipStatus.setChipBackgroundColorResource(getStatusColor(request.status))
 
             // Load image
             if (request.photoUrl.isNotEmpty()) {
                 ivItemPhoto.loadImage(request.photoUrl)
             }
+        }
+    }
+
+    private fun getStatusColor(status: StockRequest.Status): Int {
+        return when (status) {
+            StockRequest.Status.SUBMITTED -> R.color.status_submitted
+            StockRequest.Status.PROCESSING -> R.color.status_processing
+            StockRequest.Status.ORDERED -> R.color.status_ordered
+            StockRequest.Status.COMPLETED -> R.color.status_completed
+            StockRequest.Status.ON_HOLD -> R.color.status_on_hold
         }
     }
 
@@ -106,21 +117,9 @@ class RequestDetailActivity : AppCompatActivity() {
         android.widget.Toast.makeText(this, message, android.widget.Toast.LENGTH_SHORT).show()
     }
 
-    // Extension function for date formatting (you'll need to implement this)
+    // Extension function for date formatting
     private fun Long.formatToString(): String {
-        val sdf = java.text.SimpleDateFormat("MMM dd, yyyy", java.util.Locale.getDefault())
+        val sdf = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
         return sdf.format(this)
-    }
-
-    // Extension function for getting status color (you'll need to implement this)
-    private fun String.getStatusColor(context: android.content.Context): Int {
-        return when (this) {
-            StockRequest.Status.SUBMITTED.displayName -> R.color.status_submitted
-            StockRequest.Status.PROCESSING.displayName -> R.color.status_processing
-            StockRequest.Status.ORDERED.displayName -> R.color.status_ordered
-            StockRequest.Status.COMPLETED.displayName -> R.color.status_completed
-            StockRequest.Status.ON_HOLD.displayName -> R.color.status_on_hold
-            else -> R.color.status_submitted
-        }
     }
 }
