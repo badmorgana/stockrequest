@@ -60,4 +60,6 @@ dependencies {
     implementation(libs.glide)
     implementation(libs.androidx.recyclerview)
     ksp(libs.androidx.room.compiler)
+    implementation(libs.skydoves.colorpickerview)
+
 }

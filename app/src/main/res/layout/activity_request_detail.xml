@@ -108,6 +108,23 @@
                 app:layout_constraintTop_toTopOf="@+id/tvColorsWantedLabel"
                 tools:text="Black, Navy Blue, Grey" />
 
+            <HorizontalScrollView
+                android:id="@+id/scrollColorsWanted"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvColorsWantedLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvColorsWantedValue">
+
+                <LinearLayout
+                    android:id="@+id/wantedColorsContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
             <TextView
                 android:id="@+id/tvColorsNotWantedLabel"
                 android:layout_width="wrap_content"
@@ -117,7 +134,7 @@
                 android:textAppearance="@style/TextAppearance.StockRequest.Body2"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvColorsWantedValue" />
+                app:layout_constraintTop_toBottomOf="@+id/scrollColorsWanted" />
 
             <TextView
                 android:id="@+id/tvColorsNotWantedValue"
@@ -130,6 +147,23 @@
                 app:layout_constraintTop_toTopOf="@+id/tvColorsNotWantedLabel"
                 tools:text="Pink, Yellow" />
 
+            <HorizontalScrollView
+                android:id="@+id/scrollColorsNotWanted"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/tvColorsNotWantedLabel"
+                app:layout_constraintTop_toBottomOf="@+id/tvColorsNotWantedValue">
+
+                <LinearLayout
+                    android:id="@+id/notWantedColorsContainer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
+
             <TextView
                 android:id="@+id/tvQuantityLabel"
                 android:layout_width="wrap_content"
@@ -139,7 +173,7 @@
                 android:textAppearance="@style/TextAppearance.StockRequest.Body2"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvColorsNotWantedValue" />
+                app:layout_constraintTop_toBottomOf="@+id/scrollColorsNotWanted" />
 
             <TextView
                 android:id="@+id/tvQuantityValue"

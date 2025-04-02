@@ -2,14 +2,21 @@ package com.example.stockrequest.ui.activities
 
 import android.Manifest
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
-import android.os.Parcelable
 import android.provider.MediaStore
 import android.util.Log
+import android.view.Gravity
 import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
+import android.widget.GridLayout
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
@@ -18,10 +25,11 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.bumptech.glide.Glide
-import com.google.android.material.snackbar.Snackbar
 import com.example.stockrequest.R
 import com.example.stockrequest.databinding.ActivityNewRequestBinding
 import com.example.stockrequest.ui.viewmodels.NewRequestViewModel
+import com.google.android.material.chip.Chip
+import com.google.android.material.snackbar.Snackbar
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -36,8 +44,26 @@ class NewRequestActivity : AppCompatActivity() {
     private var currentPhotoPath: String = ""
     private var photoUri: Uri? = null
 
+    // Color Picker for Wanted and Not Wanted sarees
+    private val wantedColors = mutableListOf<Int>() // RGB color values
+    private val notWantedColors = mutableListOf<Int>()
+
     // Request code for camera permission
     private val CAMERA_PERMISSION_REQUEST = 100
+
+    // Predefined colors
+    private val predefinedColors = intArrayOf(
+        Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW,
+        Color.CYAN, Color.MAGENTA, Color.BLACK, Color.WHITE,
+        Color.parseColor("#FFA500"), // Orange
+        Color.parseColor("#800080"), // Purple
+        Color.parseColor("#A52A2A"), // Brown
+        Color.parseColor("#FFC0CB"), // Pink
+        Color.parseColor("#FF4500"), // Orange-Red
+        Color.parseColor("#008080"), // Teal
+        Color.parseColor("#800000"), // Maroon
+        Color.parseColor("#808000")  // Olive
+    )
 
     // Activity result launchers
     private val takePictureLauncher = registerForActivityResult(
@@ -75,6 +101,87 @@ class NewRequestActivity : AppCompatActivity() {
 
         setupListeners()
         observeViewModel()
+        setupColorPickers()
+    }
+
+    private fun setupColorPickers() {
+        binding.btnAddColorWanted.setOnClickListener {
+            showPredefinedColorOptions(true)
+        }
+
+        binding.btnAddColorNotWanted.setOnClickListener {
+            showPredefinedColorOptions(false)
+        }
+    }
+
+    private fun showPredefinedColorOptions(isWanted: Boolean) {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_color_grid)
+        dialog.setTitle(if (isWanted) R.string.pick_wanted_color else R.string.pick_not_wanted_color)
+
+        val gridLayout = dialog.findViewById<GridLayout>(R.id.colorGrid)
+
+        for (i in predefinedColors.indices) {
+            val colorView = View(this).apply {
+                setBackgroundColor(predefinedColors[i])
+                val size = resources.getDimensionPixelSize(R.dimen.color_view_size)
+                layoutParams = GridLayout.LayoutParams().apply {
+                    width = size
+                    height = size
+                    setMargins(8, 8, 8, 8)
+                }
+
+                setOnClickListener {
+                    if (isWanted) {
+                        wantedColors.add(predefinedColors[i])
+                        addColorChip(predefinedColors[i], binding.containerColorsWanted, true)
+                    } else {
+                        notWantedColors.add(predefinedColors[i])
+                        addColorChip(predefinedColors[i], binding.containerColorsNotWanted, false)
+                    }
+                    dialog.dismiss()
+                }
+            }
+            gridLayout.addView(colorView)
+        }
+
+        dialog.show()
+    }
+
+    private fun addColorChip(colorInt: Int, container: LinearLayout, isWanted: Boolean) {
+        val chip = Chip(this).apply {
+            chipBackgroundColor = ColorStateList.valueOf(colorInt)
+            isCloseIconVisible = true
+            closeIconTint = ColorStateList.valueOf(getContrastColor(colorInt))
+            chipMinHeight = resources.getDimensionPixelSize(R.dimen.color_chip_size).toFloat()
+            chipIconSize = resources.getDimensionPixelSize(R.dimen.color_chip_size).toFloat()
+
+            layoutParams = LinearLayout.LayoutParams(
+                resources.getDimensionPixelSize(R.dimen.color_chip_size),
+                resources.getDimensionPixelSize(R.dimen.color_chip_size)
+            ).apply {
+                setMargins(4, 0, 4, 0)
+                gravity = Gravity.CENTER_VERTICAL
+            }
+
+            setOnCloseIconClickListener {
+                if (isWanted) {
+                    wantedColors.remove(colorInt)
+                } else {
+                    notWantedColors.remove(colorInt)
+                }
+                container.removeView(this)
+            }
+        }
+
+        // Add the chip before the add button
+        container.addView(chip, container.childCount - 1)
+    }
+
+    // Helper to get a contrasting color for the close icon
+    private fun getContrastColor(color: Int): Int {
+        val luminance = (0.299 * Color.red(color) + 0.587 * Color.green(color) + 0.114 * Color.blue(color)) / 255
+        return if (luminance > 0.5) Color.BLACK else Color.WHITE
     }
 
     private fun setupListeners() {
@@ -142,11 +249,9 @@ class NewRequestActivity : AppCompatActivity() {
         }
 
         // Check colors wanted
-        if (binding.etColorsWanted.text.isNullOrBlank()) {
-            binding.tilColorsWanted.error = "Colors wanted is required"
+        if (wantedColors.isEmpty()) {
+            Snackbar.make(binding.root, "Please select at least one color wanted", Snackbar.LENGTH_SHORT).show()
             isValid = false
-        } else {
-            binding.tilColorsWanted.error = null
         }
 
         // Check quantity
@@ -170,8 +275,8 @@ class NewRequestActivity : AppCompatActivity() {
 
     private fun submitRequest() {
         val itemName = binding.etItemName.text.toString()
-        val colorsWanted = binding.etColorsWanted.text.toString()
-        val colorsNotWanted = binding.etColorsNotWanted.text.toString()
+        val colorsWanted = wantedColors.joinToString(",") { "#" + Integer.toHexString(it).substring(2) }
+        val colorsNotWanted = notWantedColors.joinToString(",") { "#" + Integer.toHexString(it).substring(2) }
         val quantity = binding.etQuantity.text.toString().toIntOrNull() ?: 0
         val daysNeeded = binding.etDaysNeeded.text.toString().toIntOrNull() ?: 0
 

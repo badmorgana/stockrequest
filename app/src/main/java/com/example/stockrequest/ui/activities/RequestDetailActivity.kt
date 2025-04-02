@@ -1,18 +1,21 @@
 package com.example.stockrequest.ui.activities
 
+import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.stockrequest.R
 import com.example.stockrequest.data.models.StockRequest
 import com.example.stockrequest.databinding.ActivityRequestDetailBinding
 import com.example.stockrequest.ui.viewmodels.RequestDetailViewModel
+import com.example.stockrequest.utils.loadImage
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.Locale
-import com.example.stockrequest.utils.loadImage
 
 class RequestDetailActivity : AppCompatActivity() {
 
@@ -71,12 +74,39 @@ class RequestDetailActivity : AppCompatActivity() {
     private fun displayRequestDetails(request: StockRequest) {
         binding.apply {
             tvItemNameValue.text = request.itemName
-            tvColorsWantedValue.text = request.colorsWanted
-            tvColorsNotWantedValue.text = if (request.colorsNotWanted.isNotEmpty()) {
-                request.colorsNotWanted
+
+            // Parse and display wanted colors
+            wantedColorsContainer.removeAllViews()
+            if (request.colorsWanted.isNotEmpty()) {
+                request.colorsWanted.split(",").forEach { hexColor ->
+                    try {
+                        val colorInt = Color.parseColor(hexColor)
+                        addColorView(wantedColorsContainer, colorInt)
+                    } catch (e: Exception) {
+                        Log.e("RequestDetailActivity", "Error parsing color: $hexColor", e)
+                    }
+                }
             } else {
-                "None specified"
+                tvColorsWantedValue.visibility = View.VISIBLE
+                tvColorsWantedValue.text = "None specified"
             }
+
+            // Parse and display not wanted colors
+            notWantedColorsContainer.removeAllViews()
+            if (request.colorsNotWanted.isNotEmpty()) {
+                request.colorsNotWanted.split(",").forEach { hexColor ->
+                    try {
+                        val colorInt = Color.parseColor(hexColor)
+                        addColorView(notWantedColorsContainer, colorInt)
+                    } catch (e: Exception) {
+                        Log.e("RequestDetailActivity", "Error parsing color: $hexColor", e)
+                    }
+                }
+            } else {
+                tvColorsNotWantedValue.visibility = View.VISIBLE
+                tvColorsNotWantedValue.text = "None specified"
+            }
+
             tvQuantityValue.text = request.quantityNeeded.toString()
             tvDaysNeededValue.text = "${request.daysNeeded} ${getString(R.string.days)}"
             tvDateSubmittedValue.text = request.dateSubmitted.formatToString()
@@ -89,6 +119,26 @@ class RequestDetailActivity : AppCompatActivity() {
             if (request.photoUrl.isNotEmpty()) {
                 ivItemPhoto.loadImage(request.photoUrl)
             }
+        }
+    }
+
+    private fun addColorView(container: LinearLayout, colorInt: Int) {
+        val colorView = View(this).apply {
+            setBackgroundColor(colorInt)
+            layoutParams = LinearLayout.LayoutParams(
+                resources.getDimensionPixelSize(R.dimen.color_view_size),
+                resources.getDimensionPixelSize(R.dimen.color_view_size)
+            ).apply {
+                setMargins(8, 0, 8, 0)
+            }
+        }
+        container.addView(colorView)
+
+        // Hide the text value since we're displaying color chips
+        if (container == binding.wantedColorsContainer) {
+            binding.tvColorsWantedValue.visibility = View.GONE
+        } else {
+            binding.tvColorsNotWantedValue.visibility = View.GONE
         }
     }
 

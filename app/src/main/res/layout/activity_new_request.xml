@@ -10,12 +10,14 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:theme="@style/Theme.StockRequest.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:layout_marginTop="16dp"
             android:background="@color/primary"
             app:popupTheme="@style/Theme.StockRequest.PopupOverlay"
             app:title="@string/new_stock_request"
@@ -112,60 +114,100 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/btnAddPhoto" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilColorsWanted"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_width="match_parent"
+            <!-- Colors Wanted Section -->
+            <TextView
+                android:id="@+id/tvColorsWantedLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:hint="@string/colors_wanted"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:text="@string/colors_wanted"
+                android:textAppearance="@style/TextAppearance.StockRequest.Subtitle1"
+                android:textColor="@color/primary_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btnAddPhoto">
+                app:layout_constraintTop_toBottomOf="@+id/btnAddPhoto" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etColorsWanted"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:minLines="2"
-                    android:textAppearance="@style/TextAppearance.StockRequest.Body1" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilColorsNotWanted"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            <HorizontalScrollView
+                android:id="@+id/scrollColorsWanted"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:hint="@string/colors_not_wanted"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tilColorsWanted">
+                app:layout_constraintTop_toBottomOf="@+id/tvColorsWantedLabel">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etColorsNotWanted"
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:id="@+id/containerColorsWanted"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:inputType="textMultiLine"
-                    android:minLines="2"
-                    android:textAppearance="@style/TextAppearance.StockRequest.Body1" />
+                    android:orientation="horizontal">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAddColorWanted"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        app:icon="@drawable/ic_add"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp" />
+                </LinearLayout>
+            </HorizontalScrollView>
+
+            <!-- Colors NOT Wanted Section -->
+            <TextView
+                android:id="@+id/tvColorsNotWantedLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/colors_not_wanted"
+                android:textAppearance="@style/TextAppearance.StockRequest.Subtitle1"
+                android:textColor="@color/primary_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/scrollColorsWanted" />
+
+            <HorizontalScrollView
+                android:id="@+id/scrollColorsNotWanted"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvColorsNotWantedLabel">
+
+                <LinearLayout
+                    android:id="@+id/containerColorsNotWanted"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAddColorNotWanted"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:insetLeft="0dp"
+                        android:insetTop="0dp"
+                        android:insetRight="0dp"
+                        android:insetBottom="0dp"
+                        app:icon="@drawable/ic_add"
+                        app:iconGravity="textStart"
+                        app:iconPadding="0dp" />
+                </LinearLayout>
+            </HorizontalScrollView>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilQuantity"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 android:hint="@string/quantity_needed"
                 app:layout_constraintEnd_toStartOf="@+id/tilDaysNeeded"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tilColorsNotWanted">
+                app:layout_constraintTop_toBottomOf="@+id/scrollColorsNotWanted">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etQuantity"

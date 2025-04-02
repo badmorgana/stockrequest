@@ -49,4 +49,10 @@
     <string name="status_ordered">Ordered</string>
     <string name="status_completed">Completed</string>
     <string name="status_on_hold">On Hold</string>
+
+    <!-- Color Picker -->
+    <string name="pick_wanted_color">Select a color you want</string>
+    <string name="pick_not_wanted_color">Select a color you don\'t want</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
 </resources>

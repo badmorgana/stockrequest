@@ -1,3 +1,5 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="color_chip_size">48dp</dimen>
+    <dimen name="color_view_size">64dp</dimen>
 </resources>
