@@ -35,6 +35,7 @@ import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import androidx.core.graphics.toColorInt
 
 class NewRequestActivity : AppCompatActivity() {
 
@@ -53,16 +54,22 @@ class NewRequestActivity : AppCompatActivity() {
 
     // Predefined colors
     private val predefinedColors = intArrayOf(
-        Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW,
-        Color.CYAN, Color.MAGENTA, Color.BLACK, Color.WHITE,
-        Color.parseColor("#FFA500"), // Orange
-        Color.parseColor("#800080"), // Purple
-        Color.parseColor("#A52A2A"), // Brown
-        Color.parseColor("#FFC0CB"), // Pink
-        Color.parseColor("#FF4500"), // Orange-Red
-        Color.parseColor("#008080"), // Teal
-        Color.parseColor("#800000"), // Maroon
-        Color.parseColor("#808000")  // Olive
+        "#6B372B".toColorInt(), // Coffee Brown
+        "#5F6D7A".toColorInt(), // Mid Grey
+        "#E1AD01".toColorInt(), // Mustard Yellow
+        "#FCF99C".toColorInt(), // Lemon Yellow
+        "#B21807".toColorInt(), // Tomato Red
+        "#FAF0E6".toColorInt(), // Soft Cream
+        "#006D5B".toColorInt(), // Emerald Green
+        "#93DC5C".toColorInt(), // Parrot Green
+        "#90D1C8".toColorInt(), // Ocean Bluish Green
+        "#800080".toColorInt(), // Purple
+        "#FFBF99".toColorInt(), // Peach
+        "#E77D22".toColorInt(), // Pepper Orange
+        "#F699CD".toColorInt(), // Light Pink
+        "#4169E1".toColorInt(), // Light Blue
+        "#E0218A".toColorInt(), // Barbie Pink
+        "#051650".toColorInt()  // Navy Blue
     )
 
     // Activity result launchers

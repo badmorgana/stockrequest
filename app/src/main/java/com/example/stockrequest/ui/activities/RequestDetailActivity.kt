@@ -16,6 +16,7 @@ import com.example.stockrequest.utils.loadImage
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.Locale
+import androidx.core.graphics.toColorInt
 
 class RequestDetailActivity : AppCompatActivity() {
 
@@ -80,7 +81,7 @@ class RequestDetailActivity : AppCompatActivity() {
             if (request.colorsWanted.isNotEmpty()) {
                 request.colorsWanted.split(",").forEach { hexColor ->
                     try {
-                        val colorInt = Color.parseColor(hexColor)
+                        val colorInt = hexColor.toColorInt()
                         addColorView(wantedColorsContainer, colorInt)
                     } catch (e: Exception) {
                         Log.e("RequestDetailActivity", "Error parsing color: $hexColor", e)
@@ -88,7 +89,7 @@ class RequestDetailActivity : AppCompatActivity() {
                 }
             } else {
                 tvColorsWantedValue.visibility = View.VISIBLE
-                tvColorsWantedValue.text = "None specified"
+                tvColorsWantedValue.text = "None"
             }
 
             // Parse and display not wanted colors
@@ -96,7 +97,7 @@ class RequestDetailActivity : AppCompatActivity() {
             if (request.colorsNotWanted.isNotEmpty()) {
                 request.colorsNotWanted.split(",").forEach { hexColor ->
                     try {
-                        val colorInt = Color.parseColor(hexColor)
+                        val colorInt = hexColor.toColorInt()
                         addColorView(notWantedColorsContainer, colorInt)
                     } catch (e: Exception) {
                         Log.e("RequestDetailActivity", "Error parsing color: $hexColor", e)
@@ -104,7 +105,7 @@ class RequestDetailActivity : AppCompatActivity() {
                 }
             } else {
                 tvColorsNotWantedValue.visibility = View.VISIBLE
-                tvColorsNotWantedValue.text = "None specified"
+                tvColorsNotWantedValue.text = "None"
             }
 
             tvQuantityValue.text = request.quantityNeeded.toString()
