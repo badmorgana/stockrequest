@@ -9,7 +9,7 @@ import com.example.stockrequest.data.dao.StockRequestDao
 import com.example.stockrequest.data.models.StockRequest
 import com.example.stockrequest.utils.StockRequestStatusConverter
 
-@Database(entities = [StockRequest::class], version = 1, exportSchema = false)
+@Database(entities = [StockRequest::class], version = 2, exportSchema = false)
 @TypeConverters(StockRequestStatusConverter::class)
 abstract class StockRequestDatabase : RoomDatabase() {
     abstract fun stockRequestDao(): StockRequestDao

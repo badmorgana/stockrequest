@@ -13,12 +13,13 @@ navigationFragmentKtx = "2.8.9"
 navigationUiKtx = "2.8.9"
 lifecycle = "2.8.7"
 activity = "1.10.1"
-glide = "4.13.0"
+glide = "4.16.0"
 recyclerview = "1.4.0"
 roomCommon = "2.6.1"
 roomKtx = "2.6.1"
 roomCompiler = "2.6.1"
 colorpickerview = "2.3.0"
+firebase-bom = "32.8.0"
 
 
 [libraries]
@@ -43,11 +44,17 @@ androidx-room-compiler = { group = "androidx.room", name = "room-compiler", vers
 #for Color Picker
 skydoves-colorpickerview = { group = "com.github.skydoves", name = "colorpickerview", version.ref = "colorpickerview" }
 
-
+#Firebase libraries with correct naming
+firebase-bom = { group = "com.google.firebase", name = "firebase-bom", version.ref = "firebase-bom" }
+firebase-analytics = { group = "com.google.firebase", name = "firebase-analytics" }
+firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore" }
+firebase-storage = { group = "com.google.firebase", name = "firebase-storage" }
+firebase-auth = { group = "com.google.firebase", name = "firebase-auth" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+google-services = { id = "com.google.gms.google-services", version = "4.4.2" }
 
 

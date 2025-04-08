@@ -1,36 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Base application theme -->
-    <style name="Theme.StockRequest" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <!-- Primary brand color -->
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryVariant">@color/primary_dark</item>
-        <item name="colorOnPrimary">@color/white</item>
-
-        <!-- Secondary brand color -->
-        <item name="colorSecondary">@color/accent</item>
-        <item name="colorSecondaryVariant">@color/coral_orange</item>
-        <item name="colorOnSecondary">@color/white</item>
-
-        <!-- Status bar color -->
-        <item name="android:statusBarColor">@color/primary_dark</item>
-
-        <!-- Typography -->
-        <item name="textAppearanceHeadline1">@style/TextAppearance.StockRequest.Headline1</item>
-        <item name="textAppearanceHeadline2">@style/TextAppearance.StockRequest.Headline2</item>
-        <item name="textAppearanceHeadline3">@style/TextAppearance.StockRequest.Headline3</item>
-        <item name="textAppearanceHeadline4">@style/TextAppearance.StockRequest.Headline4</item>
-        <item name="textAppearanceHeadline5">@style/TextAppearance.StockRequest.Headline5</item>
-        <item name="textAppearanceHeadline6">@style/TextAppearance.StockRequest.Headline6</item>
-        <item name="textAppearanceSubtitle1">@style/TextAppearance.StockRequest.Subtitle1</item>
-        <item name="textAppearanceSubtitle2">@style/TextAppearance.StockRequest.Subtitle2</item>
-        <item name="textAppearanceBody1">@style/TextAppearance.StockRequest.Body1</item>
-        <item name="textAppearanceBody2">@style/TextAppearance.StockRequest.Body2</item>
-        <item name="textAppearanceCaption">@style/TextAppearance.StockRequest.Caption</item>
-        <item name="textAppearanceButton">@style/TextAppearance.StockRequest.Button</item>
-        <item name="textAppearanceOverline">@style/TextAppearance.StockRequest.Overline</item>
-    </style>
-
     <!-- ToolBar Style -->
     <style name="Theme.StockRequest.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "54415676831",
+    "project_id": "stockrequest2",
+    "storage_bucket": "stockrequest2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:54415676831:android:534434e18ef406a32a19aa",
+        "android_client_info": {
+          "package_name": "com.example.stockrequest"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAd3DpjHB1UFA0-bfvxmCO4usz6ZNjWba8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

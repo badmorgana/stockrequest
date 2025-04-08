@@ -2,6 +2,13 @@
 <resources>
     <string name="app_name">Kaladhar Stock Request</string>
 
+    <!-- Login Activity -->
+    <string name="login_or_sign_up">Login or Sign Up</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="sign_up">Sign Up</string>
+
     <!-- Main Activity -->
     <string name="recent_requests">Recent Requests</string>
     <string name="no_recent_requests">No recent requests</string>
@@ -34,6 +41,8 @@
     <string name="days">days</string>
     <string name="date_submitted">Date Submitted</string>
     <string name="status">Status</string>
+    <string name="needed_within">Needed Within</string>
+    <string name="current_status">Current Status</string>
 
     <!-- Permissions -->
     <string name="camera_permission_required">Camera permission is required to take photos</string>

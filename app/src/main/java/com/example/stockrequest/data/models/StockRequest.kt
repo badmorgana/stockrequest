@@ -15,6 +15,7 @@ data class StockRequest(
     val quantityNeeded: Int,
     val daysNeeded: Int,
     val dateSubmitted: Long = System.currentTimeMillis(),
+    var firebaseId: String? = null,
     var status: Status = Status.SUBMITTED
 ) {
     enum class Status {

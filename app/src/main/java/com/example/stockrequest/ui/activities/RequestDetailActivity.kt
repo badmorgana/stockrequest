@@ -24,7 +24,7 @@ class RequestDetailActivity : AppCompatActivity() {
     private val viewModel: RequestDetailViewModel by viewModels()
 
     companion object {
-        const val EXTRA_REQUEST_ID = "extra_request_id"
+        const val EXTRA_FIREBASE_REQUEST_ID = "extra_firebase_request_id"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,15 +38,16 @@ class RequestDetailActivity : AppCompatActivity() {
         supportActionBar?.title = getString(R.string.request_details)
 
         // Get request ID from intent
-        val requestId = intent.getLongExtra(EXTRA_REQUEST_ID, -1L)
-        if (requestId == -1L) {
-            showToast("Error: No request ID provided")
+        val firebaseRequestId = intent.getStringExtra(EXTRA_FIREBASE_REQUEST_ID)
+        if (firebaseRequestId.isNullOrEmpty()) {
+            showToast("Error: No valid request ID provided")
             finish()
             return
         }
 
         // Load the request details
-        viewModel.loadRequestDetails(requestId.toString())
+        Log.d("RequestDetailActivity", "Loading details for Firebase ID: $firebaseRequestId")
+        viewModel.loadRequestDetails(firebaseRequestId)
 
         // Observe ViewModel
         observeViewModel()

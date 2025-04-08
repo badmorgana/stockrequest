@@ -2,7 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.ksp)
-
+    // Apply the Google services plugin
+    alias(libs.plugins.google.services)
 }
 
 android {
@@ -42,7 +43,7 @@ android {
 }
 
 dependencies {
-
+    // Existing dependencies
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -62,4 +63,10 @@ dependencies {
     ksp(libs.androidx.room.compiler)
     implementation(libs.skydoves.colorpickerview)
 
+    // Firebase dependencies
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage)
+    implementation(libs.firebase.auth)
 }

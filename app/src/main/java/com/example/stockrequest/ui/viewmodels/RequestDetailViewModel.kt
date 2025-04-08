@@ -1,21 +1,23 @@
 package com.example.stockrequest.ui.viewmodels
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.stockrequest.data.database.StockRequestDatabase
+import com.example.stockrequest.data.firebase.FirebaseManager
 import com.example.stockrequest.data.models.StockRequest
 import com.example.stockrequest.data.repository.StockRequestRepository
 import kotlinx.coroutines.launch
 
-class RequestDetailViewModel (application: Application): AndroidViewModel(application) {
+class RequestDetailViewModel(application: Application) : AndroidViewModel(application) {
 
     private val database = StockRequestDatabase.getDatabase(application)
     private val stockRequestDao = database.stockRequestDao()
     private val repository = StockRequestRepository(stockRequestDao)
+    private val firebaseManager = FirebaseManager()
 
     // LiveData for the stock request
     private val _stockRequest = MutableLiveData<StockRequest?>()
@@ -30,22 +32,35 @@ class RequestDetailViewModel (application: Application): AndroidViewModel(applic
     val error: LiveData<String?> = _error
 
     /**
-     * Loads the details of a specific stock request.
+     * Loads the details of a specific stock request from Firebase.
      *
-     * @param requestId The ID of the request to load
+     * @param firebaseRequestId The ID of the request to load
      */
-    fun loadRequestDetails(requestId: String) {
+    fun loadRequestDetails(firebaseRequestId: String) {
         _isLoading.value = true
 
         viewModelScope.launch {
             try {
-                val request = repository.getRequestById(requestId)
+                // Try to get the request from Firebase
+                Log.d("RequestDetailViewModel", "Fetching from Firebase: $firebaseRequestId")
+                val request = firebaseManager.getStockRequestById(firebaseRequestId)
+
                 if (request != null) {
+                    Log.d("RequestDetailViewModel", "Found request in Firebase")
                     _stockRequest.value = request
                 } else {
+                    Log.w("RequestDetailViewModel", "Request not found in Firebase: $firebaseRequestId")
                     _error.value = "Request not found"
+                    // If not found in Firebase, try local database
+                    val localRequest = repository.getRequestById(firebaseRequestId)
+                    if (localRequest != null) {
+                        _stockRequest.value = localRequest
+                    } else {
+                        _error.value = "Request not found"
+                    }
                 }
             } catch (e: Exception) {
+                Log.e("RequestDetailViewModel", "Error loading details for $firebaseRequestId", e)
                 _error.value = e.message ?: "Error loading request details"
             } finally {
                 _isLoading.value = false
@@ -54,7 +69,7 @@ class RequestDetailViewModel (application: Application): AndroidViewModel(applic
     }
 
     /**
-     * Updates the status of the current request.
+     * Updates the status of the current request in both Firebase and local database.
      *
      * @param newStatus The new status to set
      */
@@ -68,7 +83,13 @@ class RequestDetailViewModel (application: Application): AndroidViewModel(applic
 
         viewModelScope.launch {
             try {
-                // Update the request (this method doesn't return a value)
+                // Update in Firebase
+                val firebaseSuccess = firebaseManager.updateRequestStatus(
+                    updatedRequest.id.toString(),
+                    newStatus
+                )
+
+                // Update in local database
                 repository.update(updatedRequest)
 
                 // Reload the request to get the updated data
@@ -80,7 +101,6 @@ class RequestDetailViewModel (application: Application): AndroidViewModel(applic
             }
         }
     }
-
 
     /**
      * Resets the error message after it has been displayed.
