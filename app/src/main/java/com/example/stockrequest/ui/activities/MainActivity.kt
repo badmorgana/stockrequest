@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity() {
         val currentUser = firebaseAuth.currentUser
         if (currentUser == null) {
             // User is NOT signed in, launch LoginActivity
-            android.util.Log.d("MainActivity", "User not signed in. Launching LoginActivity.")
+
             val intent = Intent(this, LoginActivity::class.java)
             // Make LoginActivity the new task and clear previous activities
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity() {
             finish()
         } else {
             // User IS signed in
-            android.util.Log.d("MainActivity", "User is signed in: ${currentUser.uid}")
             // Now that we know user is logged in, load the requests
             // (This replaces the load in onResume)
             viewModel.loadRequests()

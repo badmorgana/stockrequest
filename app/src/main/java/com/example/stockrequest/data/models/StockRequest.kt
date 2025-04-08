@@ -2,7 +2,6 @@ package com.example.stockrequest.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.UUID
 
 @Entity(tableName = "stock_requests")
 data class StockRequest(

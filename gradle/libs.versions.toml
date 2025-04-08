@@ -19,7 +19,7 @@ roomCommon = "2.6.1"
 roomKtx = "2.6.1"
 roomCompiler = "2.6.1"
 colorpickerview = "2.3.0"
-firebase-bom = "32.8.0"
+firebase-bom = "33.12.0"
 
 
 [libraries]
