@@ -19,9 +19,10 @@
 
         <ImageView
             android:id="@+id/ivItemPhoto"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:contentDescription="Item photo"
+            android:layout_width="71dp"
+            android:layout_height="80dp"
+            android:layout_marginTop="12dp"
+            android:contentDescription="@string/item_photo"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,18 +36,41 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:textAppearance="@style/TextAppearance.StockRequest.Subtitle1"
-            android:textColor="@color/primary_text"
+            android:textColor="@color/secondary_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/ivItemPhoto"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Model XYZ Running Shoe" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.StockRequest.Caption"
+            android:textColor="@color/background"
+            app:chipBackgroundColor="@color/onSecondaryFixedVariant"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvQuantity"
+            tools:text="Submitted" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:textAppearance="@style/TextAppearance.StockRequest.Caption"
+            android:textColor="@color/secondary_text"
+            app:layout_constraintStart_toStartOf="@+id/tvQuantity"
+            app:layout_constraintTop_toBottomOf="@+id/tvQuantity"
+            tools:text="Mar 28, 2025" />
 
         <TextView
             android:id="@+id/tvQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="16dp"
             android:textAppearance="@style/TextAppearance.StockRequest.Body2"
             android:textColor="@color/secondary_text"
             app:layout_constraintStart_toEndOf="@+id/ivItemPhoto"
@@ -58,35 +82,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="16dp"
             android:textAppearance="@style/TextAppearance.StockRequest.Body2"
             android:textColor="@color/secondary_text"
             app:layout_constraintStart_toEndOf="@+id/tvQuantity"
             app:layout_constraintTop_toBottomOf="@+id/tvItemName"
             tools:text="• 3 days" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textAppearance="@style/TextAppearance.StockRequest.Caption"
-            android:textColor="@color/white"
-            app:chipBackgroundColor="@color/status_submitted"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvQuantity"
-            tools:text="Submitted" />
-
-        <TextView
-            android:id="@+id/tvDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textAppearance="@style/TextAppearance.StockRequest.Caption"
-            android:textColor="@color/secondary_text"
-            app:layout_constraintStart_toStartOf="@+id/tvQuantity"
-            app:layout_constraintTop_toBottomOf="@+id/tvQuantity"
-            tools:text="Mar 28, 2025" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -16,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.Locale
 import androidx.core.graphics.toColorInt
+import androidx.core.view.WindowCompat
 
 class RequestDetailActivity : AppCompatActivity() {
 
@@ -28,6 +29,7 @@ class RequestDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         binding = ActivityRequestDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

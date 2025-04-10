@@ -12,6 +12,8 @@ import com.example.stockrequest.ui.viewmodels.MainViewModel
 import com.google.firebase.auth.FirebaseAuth
 import android.util.Log      // For logging messages
 import android.widget.Toast
+import androidx.core.view.WindowCompat // For top UI bar changes
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -22,6 +24,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
@@ -43,10 +46,10 @@ class MainActivity : AppCompatActivity() {
 
             val intent = Intent(this, LoginActivity::class.java)
             // Make LoginActivity the new task and clear previous activities
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            // intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             // Finish MainActivity so the user can't press 'back' to get here without logging in
-            finish()
+            // finish()
         } else {
             // User IS signed in
             // Now that we know user is logged in, load the requests

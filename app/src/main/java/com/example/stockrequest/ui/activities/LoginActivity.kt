@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.example.stockrequest.databinding.ActivityLoginBinding
 import com.example.stockrequest.ui.viewmodels.LoginViewModel
+import androidx.core.view.WindowCompat
 
 class LoginActivity : AppCompatActivity() {
 
@@ -15,6 +16,7 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

@@ -36,6 +36,7 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import androidx.core.graphics.toColorInt
+import androidx.core.view.WindowCompat
 
 class NewRequestActivity : AppCompatActivity() {
 
@@ -98,6 +99,7 @@ class NewRequestActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         binding = ActivityNewRequestBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

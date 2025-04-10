@@ -3,49 +3,49 @@
     <!-- ToolBar Style -->
     <style name="Theme.StockRequest.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />
 
-    <style name="Theme.StockRequest.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light" />
+    <style name="Theme.StockRequest.PopupOverlay" parent="ThemeOverlay.Material3.Light" />
 
     <!-- Typography styles using Styrene for headings and Tiempos for body text -->
 
     <!-- Styrene for Headings -->
-    <style name="TextAppearance.StockRequest.Headline1" parent="TextAppearance.MaterialComponents.Headline1">
+    <style name="TextAppearance.StockRequest.Headline1" parent="TextAppearance.Material3.TitleLarge">
         <item name="fontFamily">@font/styrene_bold</item>
         <item name="android:fontFamily">@font/styrene_bold</item>
         <item name="android:textSize">96sp</item>
     </style>
 
-    <style name="TextAppearance.StockRequest.Headline2" parent="TextAppearance.MaterialComponents.Headline2">
+    <style name="TextAppearance.StockRequest.Headline2" parent="TextAppearance.Material3.TitleMedium">
         <item name="fontFamily">@font/styrene_bold</item>
         <item name="android:fontFamily">@font/styrene_bold</item>
         <item name="android:textSize">60sp</item>
     </style>
 
-    <style name="TextAppearance.StockRequest.Headline3" parent="TextAppearance.MaterialComponents.Headline3">
+    <style name="TextAppearance.StockRequest.Headline3" parent="TextAppearance.Material3.TitleSmall">
         <item name="fontFamily">@font/styrene_bold</item>
         <item name="android:fontFamily">@font/styrene_bold</item>
         <item name="android:textSize">48sp</item>
     </style>
 
-    <style name="TextAppearance.StockRequest.Headline4" parent="TextAppearance.MaterialComponents.Headline4">
+    <style name="TextAppearance.StockRequest.Headline4" parent="TextAppearance.Material3.HeadlineLarge">
         <item name="fontFamily">@font/styrene_medium</item>
         <item name="android:fontFamily">@font/styrene_medium</item>
         <item name="android:textSize">34sp</item>
     </style>
 
-    <style name="TextAppearance.StockRequest.Headline5" parent="TextAppearance.MaterialComponents.Headline5">
+    <style name="TextAppearance.StockRequest.Headline5" parent="TextAppearance.Material3.HeadlineMedium">
         <item name="fontFamily">@font/styrene_medium</item>
         <item name="android:fontFamily">@font/styrene_medium</item>
         <item name="android:textSize">24sp</item>
     </style>
 
-    <style name="TextAppearance.StockRequest.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
+    <style name="TextAppearance.StockRequest.Headline6" parent="TextAppearance.Material3.HeadlineSmall">
         <item name="fontFamily">@font/styrene_medium</item>
         <item name="android:fontFamily">@font/styrene_medium</item>
         <item name="android:textSize">20sp</item>
     </style>
 
     <!-- Tiempos for Body text -->
-    <style name="TextAppearance.StockRequest.Subtitle1" parent="TextAppearance.MaterialComponents.Subtitle1">
+    <style name="TextAppearance.StockRequest.Subtitle1" parent="TextAppearance.Material3.ActionBar.Subtitle">
         <item name="fontFamily">@font/tiempos_regular</item>
         <item name="android:fontFamily">@font/tiempos_regular</item>
         <item name="android:textSize">16sp</item>
